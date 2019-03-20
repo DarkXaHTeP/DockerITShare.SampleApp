@@ -25,6 +25,7 @@ namespace SampleApp.Web
         {
                 app
                     .UseDeveloperExceptionPage()
+                    .UseStaticFiles()
                     .UseMvc();
         }
     }
