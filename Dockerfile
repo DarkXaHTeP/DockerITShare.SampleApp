@@ -17,7 +17,7 @@ RUN dotnet restore
 COPY . ./
 COPY --from=frontend-env /app/wwwroot ./wwwroot
 
-RUN dotnet publish -c Release -r linux-musl-x64 -o out
+RUN dotnet publish SampleApp.Web.csproj -c Release -r linux-musl-x64 -o out
 
 # build runtime image
 FROM mcr.microsoft.com/dotnet/core/runtime-deps:2.2.105-alpine3.9

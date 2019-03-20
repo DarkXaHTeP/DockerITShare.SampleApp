@@ -2,6 +2,7 @@
 .vscode
 bin/
 obj/
+out/
 *DotSettings.user
 
 # System Files
