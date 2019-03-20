@@ -1,0 +1,10 @@
+language: bash
+services:
+  - docker
+script:
+  - docker build -t darkxahtep/docker-itshare-sampleapp:$TRAVIS_BUILD_NUMBER .
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push darkxahtep/docker-itshare-sampleapp;
+    fi
