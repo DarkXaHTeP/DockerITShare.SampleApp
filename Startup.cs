@@ -19,7 +19,7 @@ namespace SampleApp.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = _configuration.GetConnectionString("Word.DB");
+            var connectionString = _configuration.GetConnectionString("Word_DB");
             services.AddDbContext<WordContext>(options => options.UseSqlServer(connectionString));
 
             services.AddMvc();
