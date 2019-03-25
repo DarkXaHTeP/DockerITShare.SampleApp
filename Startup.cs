@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SampleApp.Web.DAL;
+using SampleApp.Web.Middleware;
 
 namespace SampleApp.Web
 {
@@ -29,6 +30,7 @@ namespace SampleApp.Web
         {
                 app
                     .UseDeveloperExceptionPage()
+                    .EnsureMigrationsApplied<WordContext>()
                     .UseStaticFiles()
                     .UseMvc();
         }
