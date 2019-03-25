@@ -4,7 +4,7 @@ namespace SampleApp.Web.DAL
 {
     public class WordContext: DbContext
     {
-        public WordContext(DbContextOptions<WordContext> options): base(options))
+        public WordContext(DbContextOptions<WordContext> options): base(options)
         {
         }
         
