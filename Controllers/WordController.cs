@@ -24,6 +24,7 @@ namespace SampleApp.Web.Controllers
         public IActionResult Post([FromBody] string value)
         {
             _db.Words.Add(new Word() {Value = value});
+            _db.SaveChanges();
             return this.Ok();
         }
 
@@ -37,6 +38,7 @@ namespace SampleApp.Web.Controllers
             }
 
             _db.Words.Remove(word);
+            _db.SaveChanges();
             return Ok();
         }
     }
