@@ -1,0 +1,10 @@
+<input type="text" [formControl]="wordControl" />
+<button
+    type="button"
+    (click)="addWord(wordControl.value)"
+    [disabled]="wordControl.value.length === 0"
+>Add Word</button>
+<ul>
+    <li *ngFor="let word of words$ | async"
+    >{{ word.value  }}&nbsp;<button type="button" (click)=removeWord(word.id)>x</button></li>
+</ul>
