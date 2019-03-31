@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SampleApp.Web.DAL;
 
@@ -21,9 +22,10 @@ namespace SampleApp.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] string value)
+        public IActionResult Post([FromBody] Word word)
         {
-            _db.Words.Add(new Word() {Value = value});
+            Console.WriteLine("Value is: " + word.Value);
+            _db.Words.Add(new Word() {Value = word.Value});
             _db.SaveChanges();
             return this.Ok();
         }
