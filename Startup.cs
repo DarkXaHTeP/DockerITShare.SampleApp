@@ -22,6 +22,7 @@ namespace SampleApp.Web
         {
             var connectionString = _configuration.GetConnectionString("Word_DB");
             services.AddDbContext<WordContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<IWordRepository, WordRepository>();
 
             services.AddMvc();
         }
