@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace SampleApp.Web.DAL
 {
@@ -11,11 +12,13 @@ namespace SampleApp.Web.DAL
 
         private readonly IWordRepository _repository;
         private readonly IDistributedCache _cache;
+        private readonly ILogger<CachedWordRepository> _log;
 
-        public CachedWordRepository(IWordRepository repository, IDistributedCache cache)
+        public CachedWordRepository(IWordRepository repository, IDistributedCache cache, ILogger<CachedWordRepository> log)
         {
             _repository = repository;
             _cache = cache;
+            _log = log;
         }
 
         public IReadOnlyCollection<Word> List()
@@ -24,8 +27,11 @@ namespace SampleApp.Web.DAL
 
             if (wordsBytes != null)
             {
+                _log.LogInformation("Using value from cache");
                 return Deserialize(wordsBytes);
             }
+
+            _log.LogInformation("Querying database");
 
             var words = _repository.List();
             
@@ -49,6 +55,8 @@ namespace SampleApp.Web.DAL
 
         private void CleanCache()
         {
+            _log.LogInformation("Cleaning cache");
+            
             _cache.Remove(WordListKey);
         }
 
