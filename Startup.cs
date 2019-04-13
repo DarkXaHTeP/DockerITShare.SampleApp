@@ -24,7 +24,7 @@ namespace SampleApp.Web
             var dbConnection = _configuration.GetConnectionString("Word_DB");
             services.AddDbContext<WordContext>(options => options.UseSqlServer(dbConnection));
 
-            var redisConnection = _configuration.GetConnectionString("Word.Redis");
+            var redisConnection = _configuration.GetConnectionString("Word_Redis");
             services.AddDistributedRedisCache(options => { options.Configuration = redisConnection; });
             
             services.AddScoped<IWordRepository, WordRepository>();
