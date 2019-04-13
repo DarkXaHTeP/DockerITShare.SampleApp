@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SampleApp.Web.DAL;
+using SampleApp.Web.Extensions;
 using SampleApp.Web.Middleware;
 
 namespace SampleApp.Web
@@ -20,9 +21,14 @@ namespace SampleApp.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = _configuration.GetConnectionString("Word_DB");
-            services.AddDbContext<WordContext>(options => options.UseSqlServer(connectionString));
+            var dbConnection = _configuration.GetConnectionString("Word_DB");
+            services.AddDbContext<WordContext>(options => options.UseSqlServer(dbConnection));
+
+            var redisConnection = _configuration.GetConnectionString("Word.Redis");
+            services.AddDistributedRedisCache(options => { options.Configuration = redisConnection; });
+            
             services.AddScoped<IWordRepository, WordRepository>();
+            services.Decorate<IWordRepository, CachedWordRepository>();
 
             services.AddMvc();
         }
