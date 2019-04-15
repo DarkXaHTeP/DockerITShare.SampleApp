@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
       .addWord(value)
       .subscribe(
         () => {
-          alert("Added");
           this.wordControl.setValue("");
           this.loadWords();
         },
@@ -37,7 +36,6 @@ export class AppComponent implements OnInit {
       .removeWord(id)
       .subscribe(
         () => {
-          alert("Deleted");
           this.loadWords();
         },
         this.handleError
